@@ -64,7 +64,8 @@ public class MovieController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteMovie(@PathVariable Long id)
     {
-        return new ResponseEntity<>(movieService.deleteMovie(id), HttpStatus.OK);
+        movieService.deleteMovie(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
