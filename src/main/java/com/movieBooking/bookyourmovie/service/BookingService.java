@@ -109,9 +109,28 @@ public class BookingService {
         return bookingRepository.save(booking);
     }
 
-    public  Booking cancelBooking(Long id) {
+    public  Booking cancelBooking(Long bookingid) {
+        Booking booking = bookingRepository.findById(bookingid)
+                .orElseThrow(()-> new RuntimeException("No Booking is found for booking id"+bookingid));
+
+        validateCancellation(booking);
+        booking.setBookingStatus(BookingStatus.CANCELLED);
+
+        return  bookingRepository.save(booking);
+    }
+    public  void validateCancellation(Booking booking)
+    {
+        LocalDateTime showTime = booking.getShow().getShowTime();
+        LocalDateTime deadlineTime = showTime.minusHours(2);
+
+        if(LocalDateTime.now().isAfter(deadlineTime))
+            throw new RuntimeException("Cancellation is not possible time is up for cancellation");
+
+        if(booking.getBookingStatus() == BookingStatus.CANCELLED)
+            throw new RuntimeException("Booking already cancelled");
     }
 
     public List<Booking> getBookingsByStatus(BookingStatus bookingStatus) {
+        return  bookingRepository.getBookingByBookingStatus(bookingStatus);
     }
 }
