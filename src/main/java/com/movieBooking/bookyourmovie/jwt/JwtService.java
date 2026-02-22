@@ -35,11 +35,17 @@ public class JwtService {
     }
     private Claims extratAllClaims(String jwtToken)
     {
-        return Jwts.parser().verifyWith(getSignInKey()).build().parseSignedClaims(jwtToken).getPayload();
+        return Jwts
+                .parser()
+                .verifyWith(getSignInKey())
+                .build()
+                .parseSignedClaims(jwtToken)
+                .getPayload();
     }
     public SecretKey getSignInKey(){
         return Keys.hmacShaKeyFor(secretKey.getBytes());
     }
+
 
     public String generateToken(UserDetails userDetails)
     {

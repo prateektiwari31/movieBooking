@@ -18,10 +18,8 @@ import java.util.Set;
 
 @Service
 public class AuthenticationService {
-
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private JwtService jwtService;
     @Autowired
@@ -29,7 +27,8 @@ public class AuthenticationService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public @Nullable User registerNormalUser(RegisterRequestDTO registerRequestDTO) {
+    public @Nullable User registerNormalUser(RegisterRequestDTO registerRequestDTO)
+    {
         if(userRepository.findByUsername(registerRequestDTO.getUsername()).isPresent())
         {
             throw new RuntimeException("User already present");
