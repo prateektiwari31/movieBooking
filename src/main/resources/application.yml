@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/movie-booking-DB
+    url: jdbc:postgresql://localhost:5433/moviebookingdb
     username: postgres
     password: 1234
     driver-class-name: org.postgresql.Driver
@@ -11,8 +11,9 @@ spring:
        ddl-auto: update
      show-sql: true
 
-
+server:
+  port: 8081
 jwt:
-   secret: aABCD123456@#$adaer@#@@s
+   secret: mysecretkeymysecretkeymysecretkey12
    expiration: 3600000
 

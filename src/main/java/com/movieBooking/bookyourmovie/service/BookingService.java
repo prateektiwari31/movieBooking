@@ -64,8 +64,8 @@ public class BookingService {
     }
 
     public Booking createBooking(BookingDTO bookingDTO) {
-                                                                        // show from bookingDTO // number of booking from bookingDTO ,// check number of seats non confirm or in confirm state
-        Show show = showRepository.findById(bookingDTO.getShowId())
+
+           Show show = showRepository.findById(bookingDTO.getShowId())
                 .orElseThrow(()-> new RuntimeException("show not found"));
 
         if( !isvacentseat(show.getId(), bookingDTO.getNumberOfSeats()))
@@ -84,6 +84,7 @@ public class BookingService {
         booking.setBookingTime(LocalDateTime.now());
         booking.setPrice(calculateTotalPrice(show.getPrice(),bookingDTO.getNumberOfSeats()));
         booking.setShow(show);
+        booking.setUser(user);
         booking.setNumberOfSeats(bookingDTO.getNumberOfSeats());
         booking.setSeatNumbers(bookingDTO.getSeatNumbers());
 

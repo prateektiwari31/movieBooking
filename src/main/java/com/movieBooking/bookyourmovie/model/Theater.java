@@ -1,5 +1,6 @@
 package com.movieBooking.bookyourmovie.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,5 +18,6 @@ public class Theater {
     private String theaterScreenType;
 
     @OneToMany(mappedBy = "theater" , fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Show> show;
 }
